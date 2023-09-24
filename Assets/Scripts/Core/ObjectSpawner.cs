@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class ObjectSpawner : MonoBehaviour
 {
-    [SerializeField] Transform prefab;
-    [SerializeField] Transform parent;
-    [SerializeField] Vector3 position;
-    [SerializeField] Quaternion rotation;
+    [SerializeField] protected Transform prefab;
+    [SerializeField] protected Transform parent;
+    [SerializeField] protected Vector3 position;
+    [SerializeField] protected Quaternion rotation;
 
-    protected Transform Spawn()
+    protected virtual Transform Spawn()
     {
         Transform instance;
         if (parent is null)

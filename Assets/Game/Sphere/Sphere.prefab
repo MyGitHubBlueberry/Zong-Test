@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2287165194061017044}
   - component: {fileID: 2165423570937329044}
   - component: {fileID: 3147583624539526447}
+  - component: {fileID: 8887545221587963415}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Sphere
@@ -34137,3 +34138,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupDistance: 5
+--- !u!114 &8887545221587963415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 44716235494417569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82a366eebaa4aff4e8f6fd7601590235, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 6382788295546730506, guid: d868d7e2c4aa0ce46adbc77249c3f6d1, type: 3}
+  parent: {fileID: 4045243993090498917}
+  position: {x: 2, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 0}
+  text: A stone to lift coffin

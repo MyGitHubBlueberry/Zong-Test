@@ -1,6 +1,5 @@
 using Box;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace UI.Box
