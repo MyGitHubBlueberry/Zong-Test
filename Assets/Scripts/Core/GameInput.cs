@@ -9,6 +9,8 @@ namespace Core
         public event Action<Vector2> OnTryingToMove;
         public event Action OnTryingToJump;
         public event Action OnMovementCanceled;
+        public event Action OnTryingToPickup;
+        public event Action OnTryingToDrop;
 
         public static Vector2 MousePositionDelta
         {
@@ -28,6 +30,10 @@ namespace Core
                 += _ => OnMovementCanceled?.Invoke();
             inputActions.Player.Jump.performed
                 += _ => OnTryingToJump?.Invoke();
+            inputActions.Player.Pickup.performed
+                += _ => OnTryingToPickup?.Invoke();
+            inputActions.Player.Drop.performed
+                += _ => OnTryingToDrop?.Invoke();
         }
 
         void OnEnable() => inputActions.Enable();
