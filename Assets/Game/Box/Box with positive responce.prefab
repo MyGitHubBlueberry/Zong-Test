@@ -62,7 +62,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6139937586856083247, guid: 95bc438c6dade134ca46d0cecda28250, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3940515041016883038}
+    - targetCorrespondingSourceObject: {fileID: 6139937586856083247, guid: 95bc438c6dade134ca46d0cecda28250, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3698933948440418483}
   m_SourcePrefab: {fileID: 100100000, guid: 95bc438c6dade134ca46d0cecda28250, type: 3}
+--- !u!4 &3448896529023300323 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1663333136062317154, guid: 95bc438c6dade134ca46d0cecda28250, type: 3}
+  m_PrefabInstance: {fileID: 4091988318708002945}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7925448065232883630 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6139937586856083247, guid: 95bc438c6dade134ca46d0cecda28250, type: 3}
@@ -94,5 +102,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e11a63cba21bfde42bde084d90d54769, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxUICanvasPrefab: {fileID: 8797551766972730992, guid: 02ae417f9798834438d62ace18dbbfeb, type: 3}
-  localInstantiatePosition: {x: 0, y: 3, z: 0}
+  prefab: {fileID: 8797551766972730992, guid: 02ae417f9798834438d62ace18dbbfeb, type: 3}
+  parent: {fileID: 3448896529023300323}
+  position: {x: 0, y: 3, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3698933948440418483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7925448065232883630}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0e651be40781ab479be2ae40a7c4e16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 8918165355401576488, guid: 516560d310bd684499468734bae2481d, type: 3}
+  parent: {fileID: 3448896529023300323}
+  position: {x: 0, y: 0, z: 0}
+  rotation: {x: 0, y: 0, z: 0, w: 0}
