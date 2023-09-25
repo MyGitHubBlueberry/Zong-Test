@@ -1,4 +1,4 @@
-using Sph = Sphere;
+using Base = Sphere;
 using UnityEngine;
 using TMPro;
 
@@ -32,7 +32,7 @@ namespace UI.Sphere
 
         void Start()
         {
-            GetComponent<Sph.Sphere>().OnPlayerLooksAtTheSphere += UpdateUI;
+            GetComponent<Base.Sphere>().OnPlayerLooksAtTheSphere += UpdateUI;
         }
 
         void UpdateUI()
