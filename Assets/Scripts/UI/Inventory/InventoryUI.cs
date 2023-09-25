@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.ComponentModel;
 using Core.Extentions;
@@ -12,6 +13,7 @@ namespace UI.Inventory
     {
         [SerializeField] InventoryCategoryButtons categoryButtons;
         [SerializeField] InventorySlotUI InventorySlotPrefab;
+        [SerializeField] WeaponSubcategoryButtons buttons;
 
         Base.Inventory inventory;
 
@@ -22,10 +24,19 @@ namespace UI.Inventory
         void Start()
         {
             inventory.OnInventoryUpdated += Redraw;
+            buttons.OnSubcategoryChange += Redraw;
+
             Redraw(InventoryCategory.All);
         }
+        
+        void Redraw(WeaponSubcategory subcategory)
+        {
+            transform.DestroyChildren();
 
-        private void Redraw(InventoryCategory category)
+            RedrawSomething(inventory.FindIndexesOfItemsWhichIs(subcategory));
+        }
+
+        void Redraw(InventoryCategory category)
         {
             transform.DestroyChildren();
 
@@ -35,15 +46,15 @@ namespace UI.Inventory
                     RedrawAllItems();
                     break;
                 case InventoryCategory.Weapons:
-                    RedrawSomething(inventory.WeaponIndexes);
+                    RedrawSomething(inventory.FindIndexesOfItemsWhichIs(typeof(Weapon)));
                     break;
                 case InventoryCategory.Instruments:
-                    RedrawSomething(inventory.InstrumentIndexes);
+                    RedrawSomething(inventory.FindIndexesOfItemsWhichIs(typeof(Instrument)));
                     break;
             }
         }
 
-        private void RedrawAllItems()
+        void RedrawAllItems()
         {
             for (int i = 0; i < inventory.InventorySize; i++)
             {
@@ -52,7 +63,7 @@ namespace UI.Inventory
             }
         }
 
-        private void RedrawSomething(int[] indexesOfSomethingToRedraw)
+        void RedrawSomething(int[] indexesOfSomethingToRedraw)
         {
             foreach(int index in indexesOfSomethingToRedraw)
             {

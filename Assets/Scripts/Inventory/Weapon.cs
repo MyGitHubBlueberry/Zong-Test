@@ -5,14 +5,9 @@ namespace Inventory
     [CreateAssetMenu(menuName = "Inventory Item/Weapon")]
     public class Weapon : InventoryItem
     {
-        [SerializeField] SubCategory subCategory;
+        [SerializeField] WeaponSubcategory subcategory;
         [SerializeField] GameObject prefab;
 
-        enum SubCategory
-        {
-            Wolf_Stone,
-            Lizard_Crystal,
-            Crush_Skull_Steel,
-        }
+        public WeaponSubcategory Subcategory { get => subcategory; }
     }
 }

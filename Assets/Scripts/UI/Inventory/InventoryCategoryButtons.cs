@@ -9,7 +9,6 @@ namespace UI.Inventory
 
     public partial class InventoryCategoryButtons : MonoBehaviour
     {
-        public event Action<InventoryCategory> OnCategoryChanged;
         [SerializeField] Button allButton;
         [SerializeField] Button weaponsButton;
         [SerializeField] Button instrumentsButton;
@@ -25,10 +24,7 @@ namespace UI.Inventory
             instrumentsButton.onClick.AddListener(() => HandleCategorySelection(InventoryCategory.Instruments));
         }
 
-        private void HandleCategorySelection(InventoryCategory category)
-        {
+        private void HandleCategorySelection(InventoryCategory category) =>
             inventory.SetInventoryCategory(category);
-            OnCategoryChanged?.Invoke(category);
-        }
     }
 }

@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core;
+using JetBrains.Annotations;
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 namespace Inventory
@@ -12,8 +14,6 @@ namespace Inventory
         public event Action<InventoryCategory> OnInventoryUpdated;
 
         public int InventorySize { get => inventorySize; }
-        public int[] WeaponIndexes { get => FindIndexesOfItemsWhichIs(typeof(Weapon)); }
-        public int[] InstrumentIndexes { get => FindIndexesOfItemsWhichIs(typeof(Instrument)); }
 
         [SerializeField] int inventorySize = 16;
 
@@ -76,13 +76,37 @@ namespace Inventory
             }
             return -1;
         }
-
-        int[] FindIndexesOfItemsWhichIs(Type t)
+        public int[] FindIndexesOfItemsWhichIs(WeaponSubcategory weaponSubcategory)
         {
-            return inventoryItems.Select((item, index) => new { item, index })
-                   .Where(pair => pair.item is not null && pair.item.GetType() == t)
-                   .Select(pair => pair.index)
-                   .ToArray();
+            int[] weaponIndexes = FindIndexesOfItemsWhichIs(typeof(Weapon));
+            List<int> indexes = new List<int>();
+
+            for (int i = 0; i < weaponIndexes.Length; i++)
+            {
+                Weapon weapon = (Weapon)GetItemInSlot(weaponIndexes[i]);
+                if (weapon.Subcategory == weaponSubcategory)
+                {
+                    indexes.Add(weaponIndexes[i]);
+                }
+
+            }
+
+            return indexes.ToArray();
+        }
+
+        public int[] FindIndexesOfItemsWhichIs(Type type)
+        {
+            // return inventoryItems.Select((item, index) => new { item, index })
+            //        .Where(pair => pair.item is not null && pair.item.GetType() == type)
+            //        .Select(pair => pair.index)
+            //        .ToArray();
+            List<int> indexes = new List<int>();
+
+            for (int i = 0; i < inventoryItems.Length; i++)
+                if (inventoryItems[i] is not null && inventoryItems[i].GetType() == type)
+                    indexes.Add(i);
+
+            return indexes.ToArray();
         }
     }
 }
