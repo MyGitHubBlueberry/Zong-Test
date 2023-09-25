@@ -1,11 +1,10 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
-using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
 namespace Inventory
 {
-    [CreateAssetMenu()]
+    [CreateAssetMenu(menuName = "Inventory Item/New Inventory Item")]
     public class InventoryItem : ScriptableObject, ISerializationCallbackReceiver
     {
         [SerializeField] string itemID;
@@ -53,7 +52,7 @@ namespace Inventory
         public void OnBeforeSerialize()
         {
             if (string.IsNullOrWhiteSpace(itemID))
-                itemID = System.Guid.NewGuid().ToString();
+                itemID = Guid.NewGuid().ToString();
         }
 
         public void OnAfterDeserialize()

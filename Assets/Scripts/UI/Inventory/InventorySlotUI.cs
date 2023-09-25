@@ -1,4 +1,5 @@
 using System;
+using Inventory;
 using UnityEngine;
 using UnityEngine.UI;
 using Base = Inventory;
@@ -7,27 +8,27 @@ namespace UI.Inventory
 {
     public class InventorySlotUI : MonoBehaviour
     {
-        [SerializeField] Button selectItemButton;
+        [SerializeField] Image mainItemImage;
         [SerializeField] Image selectedItemImage;
 
         int index;
-        Base.InventoryItem item;
+        InventoryItem item;
         Base.Inventory inventory;
-        Image mainItemImage;
 
-        public Base.InventoryItem GetItem()
+
+        public InventoryItem GetItem()
         {
             return inventory.GetItemInSlot(index);
         }
 
-        public void AddItems(Base.InventoryItem item, int number)
+        public void AddItems(InventoryItem item)
         {
             inventory.AddToFirstEmptySlot(item);
         }
 
-        public void RemoveItems(int number)
+        public void RemoveItems()
         {
-            inventory.RemoveFromSlot(index, number);
+            inventory.RemoveFromSlot(index);
         }
 
         public void Setup(Base.Inventory inventory, int index)
@@ -41,7 +42,6 @@ namespace UI.Inventory
                 mainItemImage.gameObject.SetActive(true);
                 inventory.OnNewItemSelected += DisplayIfSelected;
             }
-
         }
 
         void DisplayIfSelected(int slot)
@@ -51,18 +51,24 @@ namespace UI.Inventory
 
         void Awake()
         {
-            mainItemImage = selectItemButton.GetComponent<Image>();
-            
+            GetComponent<Button>().onClick.AddListener(HandleSelection);
+
             selectedItemImage.gameObject.SetActive(false);
             mainItemImage.gameObject.SetActive(false);
-
-            selectItemButton.onClick.AddListener(HandleSelection);
         }
 
         void HandleSelection()
         {
             inventory.SetSelectedItem(index);
-            selectedItemImage.gameObject.SetActive(true);
+        }
+        
+        void OnDestroy()
+        {
+            GetComponent<Button>().onClick.RemoveAllListeners();
+
+            if(item is not null)
+                inventory.OnNewItemSelected -= DisplayIfSelected;
+
         }
     }
 }

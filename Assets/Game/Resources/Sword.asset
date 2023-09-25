@@ -9,8 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a50fa0ed1dbba48bc5c971e1ae9a59, type: 3}
-  m_Name: Test 3
+  m_Script: {fileID: 11500000, guid: e60e9b43016a5444bae8bcef014c0e6a, type: 3}
+  m_Name: Sword
   m_EditorClassIdentifier: 
-  itemID: c2303bd0-5072-43f0-90c1-cbab817bf5cc
-  icon: {fileID: 21300000, guid: 43343cc13a117cc4880361e6ceb31566, type: 3}
+  itemID: 2d889eb8-f302-455b-8787-60e37e7a49c7
+  icon: {fileID: 21300000, guid: 9415af11d73bb804c8d24343e1351132, type: 3}
+  subCategory: 0
+  prefab: {fileID: 0}
