@@ -2,52 +2,69 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core;
-using JetBrains.Annotations;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
+using Inventory.InventoryItem;
 using UnityEngine;
+using Inv = Inventory.InventoryItem;
 
 namespace Inventory
 {
     public class Inventory : MonoBehaviour
     {
         public event Action<int> OnNewItemSelected;
-        public event Action<InventoryCategory> OnInventoryUpdated;
+        public event Action OnInventoryUpdated;
 
         public int InventorySize { get => inventorySize; }
+        public int SelectedItem { get; private set; }
 
         [SerializeField] int inventorySize = 16;
 
-        InventoryItem[] inventoryItems;
-        InventoryCategory currentCategory = InventoryCategory.All;
+        Inv.InventoryItem[] inventoryItems;
 
         public static Inventory GetPlayerInventory()
         {
             var player = GameObject.FindWithTag(nameof(Tag.Player));
             return player.GetComponent<Inventory>();
         }
+        
+        public bool HasSpace()
+        {
+            return FindEmptySlot() > 0;
+        }
 
         public void SetSelectedItem(int slot)
         {
+            SelectedItem = slot;
             OnNewItemSelected?.Invoke(slot);
         }
 
         public void SetInventoryCategory(InventoryCategory category)
         {
-            OnInventoryUpdated?.Invoke(category);
+            OnInventoryUpdated?.Invoke();
         }
 
-        public InventoryItem GetItemInSlot(int slot)
+        public Inv.InventoryItem GetItemInSlot(int slot)
         {
             return inventoryItems[slot];
+        }
+
+        public void RemoveFromSlot(Inv.InventoryItem item)
+        {
+            int slot = Array.IndexOf(inventoryItems, item);
+            if (slot != -1) RemoveFromSlot(slot);
         }
 
         public void RemoveFromSlot(int slot)
         {
             inventoryItems[slot] = null;
-            OnInventoryUpdated?.Invoke(currentCategory);
+            OnInventoryUpdated?.Invoke();
         }
 
-        public bool AddToFirstEmptySlot(InventoryItem item)
+        public bool AddToFirstEmptySlot(Inv.InventoryItem item)
+        {
+            return AddToFirstEmptySlot(item, false);
+        }
+
+        public bool AddToFirstEmptySlot(Inv.InventoryItem item, bool selectItem)
         {
             int i = FindEmptySlot();
 
@@ -55,35 +72,20 @@ namespace Inventory
 
             inventoryItems[i] = item;
 
-            OnInventoryUpdated?.Invoke(currentCategory);
+            OnInventoryUpdated?.Invoke();
+            if (selectItem) SetSelectedItem(i);
 
             return true;
         }
-
-        void Awake()
-        {
-            inventoryItems = new InventoryItem[inventorySize];
-        }
-
-        int FindEmptySlot()
-        {
-            for (int i = 0; i < inventoryItems.Length; i++)
-            {
-                if (inventoryItems[i] == null)
-                {
-                    return i;
-                }
-            }
-            return -1;
-        }
+        
         public int[] FindIndexesOfItemsWhichIs(WeaponSubcategory weaponSubcategory)
         {
-            int[] weaponIndexes = FindIndexesOfItemsWhichIs(typeof(Weapon));
+            int[] weaponIndexes = FindIndexesOfItemsWhichIs(typeof(WeaponInventoryItem));
             List<int> indexes = new List<int>();
 
             for (int i = 0; i < weaponIndexes.Length; i++)
             {
-                Weapon weapon = (Weapon)GetItemInSlot(weaponIndexes[i]);
+                WeaponInventoryItem weapon = (WeaponInventoryItem)GetItemInSlot(weaponIndexes[i]);
                 if (weapon.Subcategory == weaponSubcategory)
                 {
                     indexes.Add(weaponIndexes[i]);
@@ -96,10 +98,6 @@ namespace Inventory
 
         public int[] FindIndexesOfItemsWhichIs(Type type)
         {
-            // return inventoryItems.Select((item, index) => new { item, index })
-            //        .Where(pair => pair.item is not null && pair.item.GetType() == type)
-            //        .Select(pair => pair.index)
-            //        .ToArray();
             List<int> indexes = new List<int>();
 
             for (int i = 0; i < inventoryItems.Length; i++)
@@ -107,6 +105,23 @@ namespace Inventory
                     indexes.Add(i);
 
             return indexes.ToArray();
+        }
+
+        void Awake()
+        {
+            inventoryItems = new Inv.InventoryItem[inventorySize];
+        }
+
+        int FindEmptySlot()
+        {
+            for (int i = 0; i < inventoryItems.Length; i++)
+            {
+                if (inventoryItems[i] == null)
+                {
+                    return i;
+                }
+            }
+            return -1;
         }
     }
 }

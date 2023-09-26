@@ -485,8 +485,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   categoryButtons: {fileID: 1134038161}
+  subcategoryButtons: {fileID: 551785856}
   InventorySlotPrefab: {fileID: 6308472043234659698, guid: 57eb5d228b8537843b59d811be5a348b, type: 3}
-  buttons: {fileID: 129984139}
 --- !u!1 &129984133
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,7 +500,6 @@ GameObject:
   - component: {fileID: 129984136}
   - component: {fileID: 129984135}
   - component: {fileID: 129984138}
-  - component: {fileID: 129984139}
   m_Layer: 5
   m_Name: Weapons Button
   m_TagString: Untagged
@@ -630,22 +629,6 @@ MonoBehaviour:
   m_FlexibleWidth: 3
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &129984139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 129984133}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da3851f954a8dc446976a0cadc4cdc0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  buttonsHolder: {fileID: 551785854}
-  wolfStoneButton: {fileID: 380090793}
-  lizardCrystalButton: {fileID: 1566938110}
-  crushSkullButton: {fileID: 1359036769}
 --- !u!1 &201556000
 GameObject:
   m_ObjectHideFlags: 0
@@ -1729,6 +1712,7 @@ GameObject:
   m_Component:
   - component: {fileID: 551785854}
   - component: {fileID: 551785855}
+  - component: {fileID: 551785856}
   m_Layer: 5
   m_Name: Weapon Sub-category Buttons
   m_TagString: Untagged
@@ -1784,6 +1768,22 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!114 &551785856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551785853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da3851f954a8dc446976a0cadc4cdc0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  categoryButtons: {fileID: 1134038161}
+  wolfStoneButton: {fileID: 380090793}
+  lizardCrystalButton: {fileID: 1566938110}
+  crushSkullButton: {fileID: 1359036769}
 --- !u!1 &576434908
 GameObject:
   m_ObjectHideFlags: 0

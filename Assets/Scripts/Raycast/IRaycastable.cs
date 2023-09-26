@@ -4,6 +4,6 @@ namespace Raycast
 {
     public interface IRaycastable
     {
-        void HandleRaycast(RaycastHit hitInfo);
+        bool HandleRaycast(RaycastHit hitInfo);
     }
 }

@@ -1,0 +1,4 @@
+interface IUseable
+{
+    void Use();
+}

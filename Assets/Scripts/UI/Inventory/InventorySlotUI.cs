@@ -1,5 +1,4 @@
-using System;
-using Inventory;
+using Inventory.InventoryItem;
 using UnityEngine;
 using UnityEngine.UI;
 using Base = Inventory;
@@ -15,22 +14,6 @@ namespace UI.Inventory
         InventoryItem item;
         Base.Inventory inventory;
 
-
-        public InventoryItem GetItem()
-        {
-            return inventory.GetItemInSlot(index);
-        }
-
-        public void AddItems(InventoryItem item)
-        {
-            inventory.AddToFirstEmptySlot(item);
-        }
-
-        public void RemoveItems()
-        {
-            inventory.RemoveFromSlot(index);
-        }
-
         public void Setup(Base.Inventory inventory, int index)
         {
             this.inventory = inventory;
@@ -40,7 +23,7 @@ namespace UI.Inventory
             {
                 mainItemImage.sprite = item.Icon;
                 mainItemImage.gameObject.SetActive(true);
-                inventory.OnNewItemSelected += DisplayIfSelected;
+                inventory.OnNewItemSelected += DisplayIfSelected;    
             }
         }
 
@@ -68,7 +51,6 @@ namespace UI.Inventory
 
             if(item is not null)
                 inventory.OnNewItemSelected -= DisplayIfSelected;
-
         }
     }
 }

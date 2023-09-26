@@ -1,0 +1,4 @@
+interface IDoDamage
+{
+    void Damage();
+}

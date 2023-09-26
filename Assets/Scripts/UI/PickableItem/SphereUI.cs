@@ -1,8 +1,8 @@
-using Base = Sphere;
 using UnityEngine;
 using TMPro;
+using PickableItem;
 
-namespace UI.Sphere
+namespace UI.PickableItem
 {
     public class SphereUI : ObjectSpawner
     {
@@ -21,18 +21,16 @@ namespace UI.Sphere
         protected override Transform Spawn()
         {
             Transform uiInstanceHolder = base.Spawn();
-            uiInstanceHolder.transform.localPosition = Vector3.zero;
-            uiInstanceHolder.transform.localRotation = Quaternion.identity;
+            uiInstanceHolder.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
             Transform uiInstance = uiInstanceHolder.GetChild(0).GetComponent<Transform>();
-            uiInstance.localPosition = position;
-            uiInstance.localRotation = rotation;
+            uiInstance.SetLocalPositionAndRotation(position, rotation);
 
             return uiInstance;
         }
 
         void Start()
         {
-            GetComponent<Base.Sphere>().OnPlayerLooksAtTheSphere += UpdateUI;
+            GetComponent<Sphere>().OnPlayerLooksAtTheSphere += UpdateUI;
         }
 
         void UpdateUI()

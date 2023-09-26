@@ -9,25 +9,29 @@ namespace UI.Inventory
 {
     public class WeaponSubcategoryButtons : MonoBehaviour
     {
-        public event Action<WeaponSubcategory> OnSubcategoryChange;
+        public event Action<WeaponSubcategory> OnSubcategoryChanged;
 
-        [SerializeField] Transform buttonsHolder;
+        [SerializeField] InventoryCategoryButtons categoryButtons;
         [SerializeField] Button wolfStoneButton;
         [SerializeField] Button lizardCrystalButton;
         [SerializeField] Button crushSkullButton;
 
         void Awake()
         {
-            wolfStoneButton.onClick.AddListener(() => OnSubcategoryChange?.Invoke(WeaponSubcategory.WolfStone));
-            lizardCrystalButton.onClick.AddListener(() => OnSubcategoryChange?.Invoke(WeaponSubcategory.LizardCrystal));
-            crushSkullButton.onClick.AddListener(() => OnSubcategoryChange?.Invoke(WeaponSubcategory.CrushSkullSteel));
+            wolfStoneButton.onClick.AddListener(() => OnSubcategoryChanged?.Invoke(WeaponSubcategory.WolfStone));
+            lizardCrystalButton.onClick.AddListener(() => OnSubcategoryChanged?.Invoke(WeaponSubcategory.LizardCrystal));
+            crushSkullButton.onClick.AddListener(() => OnSubcategoryChanged?.Invoke(WeaponSubcategory.CrushSkullSteel));
         }
 
-        void Start() =>
-            Base.Inventory.GetPlayerInventory().OnInventoryUpdated += HandleButtonsVisibility;
+        void Start()
+        {
+            categoryButtons.OnCategoryChanged += HandleButtonsVisibility;
 
-        private void HandleButtonsVisibility(InventoryCategory category) =>
-            buttonsHolder.gameObject.SetActive(category == InventoryCategory.Weapons);
+            gameObject.SetActive(false);
+        }
+
+        void HandleButtonsVisibility(InventoryCategory category) =>
+            gameObject.SetActive(category == InventoryCategory.Weapons);
 
     }
 }

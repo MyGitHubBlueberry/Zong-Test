@@ -1,10 +1,7 @@
-using System;
-using System.Collections;
-using System.ComponentModel;
 using Core.Extentions;
 using Inventory;
+using Inventory.InventoryItem;
 using UnityEngine;
-using UnityEngine.UI;
 using Base = Inventory;
 
 namespace UI.Inventory
@@ -12,10 +9,12 @@ namespace UI.Inventory
     public class InventoryUI : MonoBehaviour
     {
         [SerializeField] InventoryCategoryButtons categoryButtons;
+        [SerializeField] WeaponSubcategoryButtons subcategoryButtons;
         [SerializeField] InventorySlotUI InventorySlotPrefab;
-        [SerializeField] WeaponSubcategoryButtons buttons;
 
         Base.Inventory inventory;
+        InventoryCategory currentCategory = InventoryCategory.All;
+        WeaponSubcategory currentWeaponSubcategory = WeaponSubcategory.WolfStone;
 
         void Awake() =>
             inventory = Base.Inventory.GetPlayerInventory();
@@ -23,15 +22,23 @@ namespace UI.Inventory
 
         void Start()
         {
+            categoryButtons.OnCategoryChanged += Redraw;
+            subcategoryButtons.OnSubcategoryChanged += Redraw;
+
             inventory.OnInventoryUpdated += Redraw;
-            buttons.OnSubcategoryChange += Redraw;
 
             Redraw(InventoryCategory.All);
         }
         
+        void Redraw() =>
+            Redraw(currentCategory);
+
+
         void Redraw(WeaponSubcategory subcategory)
         {
             transform.DestroyChildren();
+
+            currentWeaponSubcategory = subcategory;
 
             RedrawSomething(inventory.FindIndexesOfItemsWhichIs(subcategory));
         }
@@ -43,13 +50,16 @@ namespace UI.Inventory
             switch (category)
             {
                 case InventoryCategory.All: 
+                    currentCategory = InventoryCategory.All;
                     RedrawAllItems();
                     break;
                 case InventoryCategory.Weapons:
-                    RedrawSomething(inventory.FindIndexesOfItemsWhichIs(typeof(Weapon)));
+                    currentCategory = InventoryCategory.Weapons;
+                    Redraw(currentWeaponSubcategory);
                     break;
                 case InventoryCategory.Instruments:
-                    RedrawSomething(inventory.FindIndexesOfItemsWhichIs(typeof(Instrument)));
+                    currentCategory = InventoryCategory.Instruments;
+                    RedrawSomething(inventory.FindIndexesOfItemsWhichIs(typeof(InstrumentInventoryItem)));
                     break;
             }
         }

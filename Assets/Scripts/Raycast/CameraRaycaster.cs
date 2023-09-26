@@ -14,8 +14,9 @@ namespace Raycast
 
             if (hitInfo.transform.TryGetComponent(out IRaycastable raycastable))
             {
-                CurrentRaycastable = raycastable;
-                CurrentRaycastable.HandleRaycast(hitInfo);
+                CurrentRaycastable = raycastable.HandleRaycast(hitInfo) 
+                ? raycastable
+                : null;
             }
             else
             {

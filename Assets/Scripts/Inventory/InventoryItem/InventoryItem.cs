@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Inventory
+namespace Inventory.InventoryItem
 {
     [CreateAssetMenu(menuName = "Inventory Item/New Inventory Item")]
     public class InventoryItem : ScriptableObject, ISerializationCallbackReceiver
@@ -24,9 +24,8 @@ namespace Inventory
         public static InventoryItem GetFromID(string itemID)
         {
             if (itemLookupCache == null)
-            {
                 GenerageLookupCache();
-            }
+
 
             if (itemID == null || !itemLookupCache.ContainsKey(itemID)) return null;
             return itemLookupCache[itemID];

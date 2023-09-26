@@ -2,7 +2,7 @@ using System;
 using Raycast;
 using UnityEngine;
 
-namespace Sphere
+namespace PickableItem
 {
     public class Sphere : MonoBehaviour, IPickable
     {
@@ -17,9 +17,10 @@ namespace Sphere
             rb = GetComponent<Rigidbody>();
         }
 
-        public void HandleRaycast(RaycastHit hitInfo)
+        public bool HandleRaycast(RaycastHit hitInfo)
         {
             OnPlayerLooksAtTheSphere?.Invoke();
+            return hitInfo.distance < pickupDistance;;
         }
 
         public void Pickup(Transform parent)
@@ -29,6 +30,7 @@ namespace Sphere
 
             rb.isKinematic = true;
         }
+        
         public void Drop(Transform tempParent)
         {
             transform.parent = tempParent;

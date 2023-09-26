@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01a50fa0ed1dbba48bc5c971e1ae9a59, type: 3}
-  m_Name: Basic
+  m_Script: {fileID: 11500000, guid: 0a1f72606f11bf244b862491d6d9ee40, type: 3}
+  m_Name: Instrument B
   m_EditorClassIdentifier: 
-  itemID: c7070e50-8ec0-4fcf-9a28-e7d1248d34e9
-  icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  itemID: 391ff3f9-f557-422e-8889-6aa556e99a84
+  icon: {fileID: 21300000, guid: bc7147459da6e0944b077b8808cf1898, type: 3}
+  prefab: {fileID: 0}
