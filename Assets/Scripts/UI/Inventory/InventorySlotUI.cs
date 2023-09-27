@@ -42,7 +42,7 @@ namespace UI.Inventory
 
         void HandleSelection()
         {
-            inventory.SetSelectedItem(index);
+            inventory.SelectItem(index);
         }
         
         void OnDestroy()

@@ -2,7 +2,6 @@ using System;
 using Inventory;
 using UnityEngine;
 using UnityEngine.UI;
-using Base = Inventory;
 
 namespace UI.Inventory
 {

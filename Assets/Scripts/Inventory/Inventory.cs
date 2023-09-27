@@ -31,10 +31,15 @@ namespace Inventory
             return FindEmptySlot() > 0;
         }
 
-        public void SetSelectedItem(int slot)
+        public void SelectItem(int slot)
         {
             SelectedItem = slot;
             OnNewItemSelected?.Invoke(slot);
+        }
+
+        public void DeselectItem()
+        {
+            OnNewItemSelected?.Invoke(-1);
         }
 
         public void SetInventoryCategory(InventoryCategory category)
@@ -73,7 +78,7 @@ namespace Inventory
             inventoryItems[i] = item;
 
             OnInventoryUpdated?.Invoke();
-            if (selectItem) SetSelectedItem(i);
+            if (selectItem) SelectItem(i);
 
             return true;
         }

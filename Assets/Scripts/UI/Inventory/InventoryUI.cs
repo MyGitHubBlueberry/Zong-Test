@@ -8,6 +8,7 @@ namespace UI.Inventory
 {
     public class InventoryUI : MonoBehaviour
     {
+        [SerializeField] ShowHideInventoryUI showHideInventory;
         [SerializeField] InventoryCategoryButtons categoryButtons;
         [SerializeField] WeaponSubcategoryButtons subcategoryButtons;
         [SerializeField] InventorySlotUI InventorySlotPrefab;
@@ -26,6 +27,10 @@ namespace UI.Inventory
             subcategoryButtons.OnSubcategoryChanged += Redraw;
 
             inventory.OnInventoryUpdated += Redraw;
+            showHideInventory.OnInventoryShowed += (redraw) =>
+            {
+                if(redraw) Redraw();
+            };
 
             Redraw(InventoryCategory.All);
         }
@@ -46,6 +51,7 @@ namespace UI.Inventory
         void Redraw(InventoryCategory category)
         {
             transform.DestroyChildren();
+            
 
             switch (category)
             {
@@ -71,6 +77,7 @@ namespace UI.Inventory
                 var itemUI = Instantiate(InventorySlotPrefab, transform);
                 itemUI.Setup(inventory, i);
             }
+            inventory.SelectItem(inventory.SelectedItem);
         }
 
         void RedrawSomething(int[] indexesOfSomethingToRedraw)
@@ -80,6 +87,7 @@ namespace UI.Inventory
                 var itemUI = Instantiate(InventorySlotPrefab, transform);
                 itemUI.Setup(inventory, index);
             }
+            inventory.SelectItem(inventory.SelectedItem);
         }
     }
 }

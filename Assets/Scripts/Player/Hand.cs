@@ -4,6 +4,7 @@ using Raycast;
 using UnityEngine;
 using Inventory.InventoryItem;
 using Inv = Inventory.PickableItem;
+using Core.Input;
 
 namespace Player
 {
@@ -33,12 +34,16 @@ namespace Player
 
         void PickupFromInventory(int slot)
         {
-            DeletePreviousPickable();
-
+            if(slot == -1) return;
             IPickableItemHanlder itemHanlder = inventory.GetItemInSlot(slot) as IPickableItemHanlder;
+
+            if(currentPickable is Inv.PickableItem) 
+                    DeletePreviousPickable();
 
             if (itemHanlder is not null)
             {
+                Drop();
+
                 currentPickable = itemHanlder.Setup(transform);
             }
         }
@@ -67,6 +72,9 @@ namespace Player
                     || !inventory.HasSpace()) 
                     return;
             }
+
+            if(pickable is not Inv.PickableItem)
+                inventory.DeselectItem();
 
             if(pickable is IMainUIShowTrigger)
                 IMainUIShowTrigger.ShowMainUI();

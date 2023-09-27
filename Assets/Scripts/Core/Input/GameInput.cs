@@ -1,8 +1,9 @@
 using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Core
+namespace Core.Input
 {
     public class GameInput : MonoBehaviour
     {
@@ -11,6 +12,7 @@ namespace Core
         public event Action OnMovementCanceled;
         public event Action OnTryingToPickup;
         public event Action OnTryingToDrop;
+        public event Action OnTryingToToggleInventory;
 
         public static Vector2 MousePositionDelta
         {
@@ -34,7 +36,9 @@ namespace Core
                 += _ => OnTryingToPickup?.Invoke();
             inputActions.Player.Drop.performed
                 += _ => OnTryingToDrop?.Invoke();
-        }
+            inputActions.Player.ToggleInventory.performed
+                += _ => OnTryingToToggleInventory?.Invoke();
+         }
 
         void OnEnable() => inputActions.Enable();
 
