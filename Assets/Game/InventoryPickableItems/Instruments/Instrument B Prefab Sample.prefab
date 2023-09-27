@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3426636821683657196}
   - component: {fileID: 8190769632607054537}
   - component: {fileID: 5528020588184192841}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Instrument B Prefab Sample
   m_TagString: Untagged
   m_Icon: {fileID: 0}

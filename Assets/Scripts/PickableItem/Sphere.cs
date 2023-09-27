@@ -5,23 +5,29 @@ using UnityEngine;
 
 namespace PickableItem
 {
-    public class Sphere : MonoBehaviour, IPickable, IMainUIShowTrigger
+    public class Sphere : MonoBehaviour, IPickable, IMainUIShowTrigger, IAddPoints
     {
         public event Action OnPlayerLooksAtTheSphere;
+        public event Action<int> OnPointsAdded;
 
         [SerializeField] float pickupDistance;
+        [Range(1, 100)]
+        [SerializeField] int pointsToRewardOnFirstPickup;
 
         Rigidbody rb;
+        bool wasPickedup;
 
         void Awake()
         {
             rb = GetComponent<Rigidbody>();
+            bool haveParent = transform.position != transform.localPosition;
+            wasPickedup = haveParent;
         }
 
         public bool HandleRaycast(RaycastHit hitInfo)
         {
             OnPlayerLooksAtTheSphere?.Invoke();
-            return hitInfo.distance < pickupDistance;;
+            return hitInfo.distance < pickupDistance; ;
         }
 
         public void Pickup(Transform parent)
@@ -30,8 +36,14 @@ namespace PickableItem
             transform.localPosition = Vector3.zero;
 
             rb.isKinematic = true;
+
+            if (!wasPickedup)
+            {
+                OnPointsAdded?.Invoke(pointsToRewardOnFirstPickup);
+                wasPickedup = true;
+            }
         }
-        
+
         public void Drop(Transform tempParent)
         {
             transform.parent = tempParent;
@@ -42,3 +54,4 @@ namespace PickableItem
         }
     }
 }
+

@@ -34138,6 +34138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pickupDistance: 5
+  pointsToRewardOnFirstPickup: 20
 --- !u!114 &8887545221587963415
 MonoBehaviour:
   m_ObjectHideFlags: 0
