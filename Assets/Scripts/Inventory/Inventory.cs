@@ -14,7 +14,7 @@ namespace Inventory
         public event Action OnInventoryUpdated;
 
         public int InventorySize { get => inventorySize; }
-        public int SelectedItem { get; private set; }
+        public int SelectedItem { get; private set; } = -1;
 
         [SerializeField] int inventorySize = 16;
 
@@ -61,6 +61,7 @@ namespace Inventory
         public void RemoveFromSlot(int slot)
         {
             inventoryItems[slot] = null;
+            SelectedItem = -1;
             OnInventoryUpdated?.Invoke();
         }
 
