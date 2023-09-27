@@ -1,10 +1,11 @@
 using System;
 using Raycast;
+using UI;
 using UnityEngine;
 
 namespace PickableItem
 {
-    public class Sphere : MonoBehaviour, IPickable
+    public class Sphere : MonoBehaviour, IPickable, IMainUIShowTrigger
     {
         public event Action OnPlayerLooksAtTheSphere;
 

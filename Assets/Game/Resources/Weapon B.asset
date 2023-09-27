@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c03026382ee0ada48a6b93f58dd621a0, type: 3}
   m_Name: Weapon B
   m_EditorClassIdentifier: 
-  itemID: 63188c57-4b48-48e5-a5f4-b9b46bcaa782
+  itemID: e5e1b64b-375c-4d5e-8bf2-671f4ed5bdf1
   icon: {fileID: 21300000, guid: 5732dc58816b91d4dbc488b1b3c8f08b, type: 3}
   subcategory: 1
   prefab: {fileID: 6302938031748839837, guid: f0475ecfbc034b0458abbfdeebc6b6ea, type: 3}

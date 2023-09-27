@@ -68,6 +68,9 @@ namespace Player
                     return;
             }
 
+            if(pickable is IMainUIShowTrigger)
+                IMainUIShowTrigger.ShowMainUI();
+
             DeletePreviousPickable();
 
 
