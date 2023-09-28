@@ -7746,11 +7746,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4045243993090498917, guid: 908d8d10c8881564ab1821ab398e3074, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.75
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4045243993090498917, guid: 908d8d10c8881564ab1821ab398e3074, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.5
+      value: -2.75
       objectReference: {fileID: 0}
     - target: {fileID: 4045243993090498917, guid: 908d8d10c8881564ab1821ab398e3074, type: 3}
       propertyPath: m_LocalRotation.w
@@ -8825,6 +8825,7 @@ GameObject:
   - component: {fileID: 1643951368}
   - component: {fileID: 1643951367}
   - component: {fileID: 1643951369}
+  - component: {fileID: 1643951370}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -8957,6 +8958,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   uniqueIdentifier: 98ecc12e-97a9-4d8a-9d16-9224c8acfc1a
+--- !u!114 &1643951370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1643951360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85586560af4c46d4da36373ccc1e3766, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inventoryUI: {fileID: 2142819547}
 --- !u!850595691 &1665785135
 LightingSettings:
   m_ObjectHideFlags: 0

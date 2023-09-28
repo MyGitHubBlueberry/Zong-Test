@@ -8,19 +8,12 @@ public class Rotator : MonoBehaviour
     [Range(1, 30)]
     [SerializeField] float sensivity = 8f;
     
-    GameInput gameInput;
     float xRotation;
     new Camera camera;
 
     void Awake()
     {
-        gameInput = GetComponent<GameInput>();
         camera = GetComponentInChildren<Camera>();
-    }
-
-    void Start()
-    {
-        //Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Update()

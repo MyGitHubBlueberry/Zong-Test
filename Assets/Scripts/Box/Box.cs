@@ -6,33 +6,16 @@ using UnityEngine;
 
 namespace Box
 {
-    public class Box : MonoBehaviour, ISaveable
+    public class Box : MonoBehaviour
     {
-        public bool WasUsed { get => wasUsed; }
-        
-        bool wasUsed;
         IBoxResponce boxResponce;
 
         void Awake() => boxResponce = GetComponent<IBoxResponce>();
 
         void OnTriggerEnter(Collider other)
         {
-            if (!wasUsed && other.CompareTag(nameof(Tag.Sphere)))
-            {
-                boxResponce.HandleSphereEntering(other.transform);
-                wasUsed = true;
-            }
+            if (!other.CompareTag(nameof(Tag.Sphere))) return;
+            boxResponce.HandleSphereEntering(other.transform);
         }
-
-        public virtual JToken CaptureAsJToken()
-        {
-            return JToken.FromObject(wasUsed);
-        }
-
-        public virtual void RestoreFromJToken(JToken state)
-        {
-            wasUsed = state.ToObject<bool>();
-        }
-
     }
 }

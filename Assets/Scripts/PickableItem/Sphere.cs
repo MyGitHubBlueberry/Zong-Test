@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Core;
 using Newtonsoft.Json.Linq;
 using Raycast;
 using Saving;
-using TreeEditor;
 using UI;
 using UnityEngine;
 
@@ -14,6 +14,7 @@ namespace PickableItem
         public event Action OnPlayerLooksAtTheSphere;
         public event Action<int> OnPointsAdded;
         public event Action OnGameSave;
+        public event Action OnMainUIShowRequest;
 
         [SerializeField] float pickupDistance;
         [Range(1, 100)]
@@ -44,6 +45,7 @@ namespace PickableItem
 
             if (!wasPickedup)
             {
+                OnMainUIShowRequest?.Invoke();
                 OnPointsAdded?.Invoke(pointsToRewardOnFirstPickup);
                 wasPickedup = true;
                 OnGameSave?.Invoke();

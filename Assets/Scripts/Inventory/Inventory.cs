@@ -60,6 +60,7 @@ namespace Inventory
 
         public void RemoveFromSlot(int slot)
         {
+            if(slot == -1) return;
             inventoryItems[slot] = null;
             SelectedItem = -1;
             OnInventoryUpdated?.Invoke();

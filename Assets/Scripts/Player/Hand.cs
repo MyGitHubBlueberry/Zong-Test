@@ -75,11 +75,7 @@ namespace Player
             if(pickable is not Inv.PickableItem)
                 inventory.DeselectItem();
 
-            if(pickable is IMainUIShowTrigger)
-                IMainUIShowTrigger.ShowMainUI();
-
             DeletePreviousPickable();
-
 
             currentPickable = pickable;
             currentPickable.Pickup(transform);

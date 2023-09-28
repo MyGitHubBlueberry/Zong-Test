@@ -1,6 +1,9 @@
 
 using System;
+using System.Linq;
+using Core;
 using Core.Input;
+using TMPro;
 using UnityEngine;
 using Inv = Inventory;
 
@@ -8,7 +11,8 @@ namespace UI.Inventory
 {
     public class ShowHideInventoryUI : MonoBehaviour
     {
-        public Action<bool> OnInventoryShowed;
+        public event Action<bool> OnInventoryShowed;
+        public event Action OnInventoryBecomeAvailable;
         [SerializeField] GameInput gameInput;
 
         Inv.Inventory inventory;
@@ -17,19 +21,15 @@ namespace UI.Inventory
         void Awake()
         {
             inventory = Inv.Inventory.GetPlayerInventory();
-            IMainUIShowTrigger.OnAnyMainUIShowRequest += UseOnlyOneCall;
-        }
 
-        private void UseOnlyOneCall()
-        {
             gameInput.OnTryingToToggleInventory += ToggleVisibility;
-            IMainUIShowTrigger.OnAnyMainUIShowRequest -= UseOnlyOneCall;
+            OnInventoryBecomeAvailable?.Invoke();
         }
 
         void ToggleVisibility()
         {
             gameObject.SetActive(!gameObject.activeSelf);
-            if(!gameObject.activeSelf)
+            if (!gameObject.activeSelf)
             {
                 inventory.OnInventoryUpdated += TellToRedrawIfThereWereChanges;
             }

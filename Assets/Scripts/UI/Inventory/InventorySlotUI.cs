@@ -13,6 +13,7 @@ namespace UI.Inventory
         int index;
         InventoryItem item;
         Base.Inventory inventory;
+        InventoryUI ui;
 
         public void Setup(Base.Inventory inventory, int index)
         {
@@ -43,6 +44,16 @@ namespace UI.Inventory
         void HandleSelection()
         {
             inventory.SelectItem(index);
+        }
+        void OnEnable()
+        {
+            if(item is not null)
+                inventory.OnNewItemSelected += DisplayIfSelected; 
+        }
+        void OnDisable()
+        {
+            if(item is not null)
+                inventory.OnNewItemSelected -= DisplayIfSelected;  
         }
         
         void OnDestroy()
