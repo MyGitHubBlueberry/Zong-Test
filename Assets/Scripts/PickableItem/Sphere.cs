@@ -1,14 +1,19 @@
 using System;
+using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 using Raycast;
+using Saving;
+using TreeEditor;
 using UI;
 using UnityEngine;
 
 namespace PickableItem
 {
-    public class Sphere : MonoBehaviour, IPickable, IMainUIShowTrigger, IAddPoints
+    public class Sphere : MonoBehaviour, IPickable, IMainUIShowTrigger, IAddPoints, ISaveable, IGameSaver
     {
         public event Action OnPlayerLooksAtTheSphere;
         public event Action<int> OnPointsAdded;
+        public event Action OnGameSave;
 
         [SerializeField] float pickupDistance;
         [Range(1, 100)]
@@ -41,6 +46,7 @@ namespace PickableItem
             {
                 OnPointsAdded?.Invoke(pointsToRewardOnFirstPickup);
                 wasPickedup = true;
+                OnGameSave?.Invoke();
             }
         }
 
@@ -52,6 +58,52 @@ namespace PickableItem
 
             rb.isKinematic = false;
         }
+
+        public JToken CaptureAsJToken()
+        {
+            JObject state = new JObject();
+            IDictionary<string, JToken> stateDict = state;
+
+            stateDict[nameof(transform.position)] = transform.position.ToToken();
+            stateDict[nameof(wasPickedup)] = JToken.FromObject(wasPickedup);
+            
+            return state;
+        }
+
+        public void RestoreFromJToken(JToken state)
+        {
+            if (state is JObject stateObject)
+            {
+                IDictionary<string, JToken> stateDict = stateObject;
+
+                transform.position = stateDict[nameof(transform.position)].ToVector3();
+                wasPickedup = stateDict[nameof(wasPickedup)].ToObject<bool>();
+            }
+        }
     }
 }
 
+
+
+//  public JToken CaptureAsJToken()
+//         {
+//             JObject state = new JObject();
+//             IDictionary<string, JToken> stateDict = state;
+
+//             stateDict[nameof()] = ;
+//             stateDict[nameof()] = ;
+
+//             return state;
+//         }
+
+//         public void RestoreFromJToken(JToken state)
+//         {
+//             if (state is JObject stateObject)
+//             {
+//                 IDictionary<string, JToken> stateDict = stateObject;
+
+//                  = stateDict[nameof()];
+//                  = stateDict[nameof()];
+
+//             }
+//         }

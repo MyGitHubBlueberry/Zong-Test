@@ -3,9 +3,10 @@ using UnityEngine;
 
 namespace Box
 {
-    public class BackToCheckpointBoxResponce : MonoBehaviour, IBoxResponce
+    public class BackToCheckpointBoxResponce : MonoBehaviour, IBoxResponce, IGameLoader
     {
-        public event Action OnBackToCheckpointBoxResponce;
-        public void HandleSphereEntering(Transform sphere) => OnBackToCheckpointBoxResponce?.Invoke();
+        public event Action OnGameLoad;
+
+        public void HandleSphereEntering(Transform sphere) => OnGameLoad?.Invoke();
     }
 }

@@ -1,13 +1,16 @@
 using System;
+using System.ComponentModel;
 using Core;
 using Core.Input;
+using Newtonsoft.Json.Linq;
+using Saving;
 using TMPro;
 using UnityEngine;
 
 namespace Controls
 {
     [RequireComponent(typeof(CharacterController))]
-    public class Mover : MonoBehaviour
+    public class Mover : MonoBehaviour, ISaveable
     {
         [SerializeField] float speed = 12f;
         [SerializeField] float gravity = 9.8f;
@@ -48,7 +51,7 @@ namespace Controls
         void Update()
         {
             isGrounded = Physics.CheckSphere(transform.position, groundDistance, groundMask);
-            
+
 
             if (isMoving) Move(moveDirection);
 
@@ -65,10 +68,22 @@ namespace Controls
 
         void ApplyGravity()
         {
-            if (isGrounded && velocity.y < 0) velocity.y = -gravity; 
+            if (isGrounded && velocity.y < 0) velocity.y = -gravity;
 
             velocity.y -= gravity * Time.deltaTime;
             controller.Move(velocity * Time.deltaTime);
+        }
+        public JToken CaptureAsJToken()
+        {
+            return transform.position.ToToken();
+        }
+
+        public void RestoreFromJToken(JToken state)
+        {
+            CharacterController controller = GetComponent<CharacterController>();
+            controller.enabled = false;
+            transform.position = state.ToVector3();
+            controller.enabled = true;
         }
     }
 }

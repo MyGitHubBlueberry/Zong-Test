@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
+using Saving;
 using UnityEngine;
 
 namespace PointSystem
 {
-    public class Points : MonoBehaviour
+    public class Points : MonoBehaviour, ISaveable
     {
         public event Action<int> OnPointsAdded;
         int points;
@@ -22,6 +24,17 @@ namespace PointSystem
             this.points += points;
 
             OnPointsAdded?.Invoke(this.points);
+        }
+
+        public JToken CaptureAsJToken()
+        {
+            return JToken.FromObject(points);
+        }
+
+        public void RestoreFromJToken(JToken state)
+        {
+            points = state.ToObject<int>();
+            OnPointsAdded?.Invoke(points);
         }
     }
 }
